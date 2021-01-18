@@ -1,9 +1,0 @@
-Create new virtual env. py -m venv venv, python3 -m venv venv
-Activate virtual env. source venv/Scripts/activate | source venv/bin/activate
-Deactivate virtual env. deactivate
-Create requirements.txt. pip3 freeze > requirements.txt
-To run the app locally python application.py
-Install pip. sudo apt-get update; sudo apt-get install python3-pip
-Install venv. sudo apt-get install python3-venv
-Run unit tests. coverage run tests.py
-Check unit test coverage. coverage report -m wisk/main/*.py
