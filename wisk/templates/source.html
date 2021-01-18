@@ -1,0 +1,32 @@
+<!-- Inherit the layout page to avoid code duplication. -->
+{% extends "layout.html" %}
+{% block content %}
+    <h1 class="mb-3">Articles from {{ articles.items[0].source }}</h1>
+    {% for article in articles.items %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ article.url_to_img }}" alt="">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('articles.source', source_name=article.source) }}">{{ article.source }}</a>
+                    <small class="text-muted">{{ article.ds }}</small>
+                </div>
+                <h2><a class="article-title" href="{{ url_for('articles.article', article_id=article.id) }}">{{ article.title }}</a></h2>
+                <p class="article-content">{{ article.summary }}</p>
+            </div>
+        </article>
+    {% endfor %}
+
+    <!-- To limit the number of articles displayed per page.
+    This will allow you to move across pages. -->
+    {% for page_num in articles.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if articles.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('articles.source', source_name=articles.items[0].source, page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('articles.source', source_name=articles.items[0].source, page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
